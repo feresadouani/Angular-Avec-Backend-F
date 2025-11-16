@@ -9,41 +9,18 @@
     placeholder="Rechercher un événement"
   />
 
+  <button type="button" class="btn btn-primary" routerLink="./addEvent">
+    Add New Event
+  </button>
+
   <div class="row g-3">
     <div class="col-md-4" *ngFor="let event of filter()">
-      <div class="card h-100 shadow-sm">
-        <img
-          src="{{ event.imageUrl }}"
-          class="card-img-top img-fluid"
-          style="height: 200px; object-fit: cover"
-        />
+      <app-card
+  [event]="event"
+  (notifLike)="incLikes($event)"
+  (notifBuy)="buy($event)"
+></app-card>
 
-        <div class="card-body">
-          <h5 class="card-title">{{ event.titre | uppercase }}</h5>
-          <p class="text-muted">{{ event.lieu }} - {{ event.date | date }}</p>
-          <p></p>
-          <p class="fw-bold">{{ event.description }}</p>
-          <p>{{ event.lieu }}</p>
-          <p>Places disponibles: {{ event.nbPlaces }}</p>
-          <!-- Bouton Like -->
-          <button
-            class="btn btn-sm btn-primary"
-            (click)="incLikes(event)"
-            [disabled]="event.nbPlaces === 0"
-          >
-            👍 Like
-          </button>
-          <button
-            class="btn btn-sm btn-primary"
-            (click)="buy(event)"
-            [disabled]="event.nbPlaces == 0"
-            [disabled]="dateExpire(event)"
-          >
-            buy ticket
-          </button>
-          <span class="ms-2">{{ event.nbrLikes }}</span>
-        </div>
-      </div>
     </div>
   </div>
 </div>

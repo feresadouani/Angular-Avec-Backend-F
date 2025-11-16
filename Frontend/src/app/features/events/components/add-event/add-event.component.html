@@ -1,0 +1,160 @@
+<form
+  class="container mt-4 border p-4 rounded bg-light"
+  [formGroup]="eventForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h3 class="mb-4">Créer un Événement</h3>
+
+  <div class="mb-3">
+    <label for="title" class="form-label">Titre</label>
+    <input
+      type="text"
+      id="title"
+      class="form-control"
+      placeholder="Titre de l'événement"
+      formControlName="titre"
+    />
+    <div *ngIf="titre?.invalid && titre?.touched">
+      <span *ngIf="titre?.hasError('required')" style="color: red">
+        This field is required
+      </span>
+      <span *ngIf="titre?.hasError('minlength')" style="color: red">
+        Title must be at least 5 characters long
+      </span>
+      <span *ngIf="titre?.errors?.['pattern']" style="color: red">
+        This field must respect the pattern
+      </span>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea
+      id="description"
+      class="form-control"
+      rows="3"
+      placeholder="Décrivez votre événement..."
+      formControlName="description"
+      required
+    ></textarea>
+  </div>
+  <div *ngIf="description?.invalid && description?.touched">
+    <span *ngIf="description?.hasError('required')" style="color: red">
+      This field is required
+    </span>
+    <span *ngIf="description?.hasError('minlength')" style="color: red">
+      Description must be at least 30 characters long
+    </span>
+  </div>
+
+  <div class="mb-3">
+    <label for="date" class="form-label">Date</label>
+    <input
+      type="date"
+      id="date"
+      class="form-control"
+      formControlName="date"
+      required
+    />
+    <div *ngIf="date?.invalid && date?.touched">
+      <span *ngIf="date?.hasError('required')" style="color: red">
+        This field is required
+      </span>
+      <span *ngIf="date?.errors?.['futureDateInvalid']" style="color: red"
+        >La date doit être dans le futur, minimum 7 days</span
+      >
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="lieu" class="form-label">Lieu</label>
+    <input
+      type="text"
+      id="lieu"
+      class="form-control"
+      placeholder="Adresse ou ville"
+      formControlName="lieu"
+      required
+    />
+    <div *ngIf="lieu?.invalid && lieu?.touched">
+      <span *ngIf="lieu?.hasError('required')" style="color: red">
+        This field is required
+      </span>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="prix" class="form-label">Prix</label>
+    <input
+      type="number"
+      id="prix"
+      class="form-control"
+      formControlName="prix"
+    />
+    <div *ngIf="prix?.invalid && prix?.touched">
+      <span *ngIf="prix?.hasError('required')" style="color: red">
+        This field is required
+      </span>
+      <span *ngIf="prix?.errors?.['pattern']" style="color: red">
+        Price must be a valid number
+      </span>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="nbPlaces" class="form-label">Nombre de places</label>
+    <input
+      type="number"
+      id="nbPlaces"
+      class="form-control"
+      formControlName="nbPlaces"
+      required
+    />
+    <div *ngIf="nbPlaces?.invalid && nbPlaces?.touched">
+      <span *ngIf="nbPlaces?.hasError('required')" style="color: red">
+        This field is required
+      </span>
+      <span *ngIf="nbPlaces?.errors?.['pattern']" style="color: red">
+        Number of places must be a valid number between 1 and 100
+      </span>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="imageUrl" class="form-label">Image</label>
+    <input
+      type="url"
+      id="imageUrl"
+      class="form-control"
+      placeholder="URL de l’image"
+      formControlName="imageUrl"
+      required
+    />
+  </div>
+<div formArrayName="domaines">
+    <label>Domaines</label>
+    <div *ngFor="let domainCtrl of domaines.controls; let i = index">
+      <input [formControlName]="i" />
+      <div *ngIf="domainCtrl.touched && domainCtrl.invalid">
+        <small *ngIf="domainCtrl.errors?.['required']"
+          >Le domaine est requis.</small
+        >
+        <small *ngIf="domainCtrl.errors?.['minlength']"
+          >Minimum 3 caractères.</small
+        >
+        <small *ngIf="domainCtrl.errors?.['maxlength']"
+          >Maximum 20 caractères.</small
+        >
+      </div>
+    </div>
+    <button type="button" (click)="addDomain()">Ajouter un domaine</button>
+  </div>
+ 
+  <button
+    type="submit"
+    class="btn btn-primary w-100"
+    [disabled]="eventForm.invalid"
+  >
+    Ajouter L'événement
+  </button>
+</form>

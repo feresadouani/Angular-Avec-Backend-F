@@ -9,4 +9,5 @@ export interface Event {
     imageUrl: string;
     nbPlaces: number;
     nbrLikes: number;
+    domaines?: string[];
 }

@@ -13,6 +13,7 @@ import { ListEventComponent } from './features/events/list-event/list-event.comp
 import { RouterModule } from '@angular/router';
 import { TestComponent } from './layout/test/test.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CapitalizeFirstPipe } from './shared/pipes/capitalize-first.pipe';
 
 @NgModule({
   declarations: [
