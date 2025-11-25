@@ -1,9 +1,5 @@
 <div class="card h-100 shadow-sm">
-  <img
-    src="{{ event.imageUrl }}"
-    class="card-img-top img-fluid"
-    style="height: 200px; object-fit: cover"
-  />
+  <img src="{{ event.imageUrl }}" class="card-img-top img-fluid" style="height: 200px; object-fit: cover" />
 
   <div class="card-body">
     <h5 class="card-title">{{ event.titre }}</h5>
@@ -16,22 +12,17 @@
     <p>nbr likes: {{ event.nbrLikes }}</p>
 
     <!-- Bouton Like -->
-    <button
-      class="btn btn-sm btn-primary"
-      (click)="likeEvent(event)"
-      [disabled]="dateExpire(event)"
-    >
+    <button class="btn btn-sm btn-primary" (click)="likeEvent(event)" [disabled]="dateExpire(event)">
       👍 Like
     </button>
-    <button
-      class="btn btn-sm btn-primary"
-      (click)="buyEvent(event)"
-      [disabled]="event.nbPlaces == 0"
-    >
+    <button class="btn btn-sm btn-primary" (click)="buyEvent(event)" [disabled]="event.nbPlaces == 0">
       buy ticket
     </button>
     <button class="btn btn-sm btn-primary" [routerLink]="['./', event.id]">
       more details
+    </button>
+    <button class="btn btn-sm btn-primary" (click)="participate(event.id,event.prix)" [disabled]="event.nbPlaces==0">
+      Participer
     </button>
 
     <span class="ms-2">put your data</span>

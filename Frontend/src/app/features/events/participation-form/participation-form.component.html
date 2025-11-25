@@ -1,0 +1,32 @@
+<h3>participation-form </h3>
+<form #form="ngForm">
+    <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email" ngModel
+            #emailCtrl="ngModel" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+    </div>
+    <div *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)">
+        <div *ngIf="emailCtrl.errors?.['required']" class="text-danger">
+            Email is required.
+        </div>
+        <div *ngIf="emailCtrl.errors?.['pattern']" class="text-danger">
+            Please enter a valid email address.
+        </div>
+
+    </div>
+    <div class="mb-3">
+        <label for="nbPlaces" class="form-label">Nombre de Place</label>
+        <input type="number" class="form-control" id="nbPlaces" placeholder="Enter number of places" name="nbPlaces"
+            ngModel #nbPlacesCtrl="ngModel" min="1" (blur)="calculateTotalPrice(nbPlacesCtrl.value)">
+    </div>
+    <div *ngIf="nbPlacesCtrl.invalid && (nbPlacesCtrl.dirty || nbPlacesCtrl.touched)">
+        <div *ngIf="nbPlacesCtrl.errors?.['required']" class="text-danger">
+            Nombre de Places is required.
+        </div>
+        <div *ngIf="nbPlacesCtrl.errors?.['min']" class="text-danger">
+            Number of places must be at least 1.
+        </div>
+    </div>
+    <label for="totalPrice" class="form-label">totalPrice : {{ totalPrice }}</label> <br>
+    <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Submit</button>
+</form>
