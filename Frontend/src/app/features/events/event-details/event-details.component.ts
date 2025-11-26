@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../../../service/api.service';
+import { ApiService } from '../../../shared/service/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { Event } from '../../../models/event';
+import { ModelEvent } from '../../../models/event';
 
 @Component({
   selector: 'app-event-details',
@@ -11,7 +11,7 @@ import { Event } from '../../../models/event';
 export class EventDetailsComponent {
 
   id!: number;
-  eventDetails!: Event;
+  eventDetails!: ModelEvent;
   constructor(private ApiService: ApiService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -22,7 +22,7 @@ export class EventDetailsComponent {
 
   getEventDetails(id: number): void {
     this.ApiService.getEventByid(id).subscribe({
-      next: (data: any) => {
+      next: (data: ModelEvent) => {
         console.log(data);
         this.eventDetails = {
           ...data,

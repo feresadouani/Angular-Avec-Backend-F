@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../../../service/api.service';
-import { Event } from '../../../models/event';
+import { ApiService } from '../../../shared/service/api.service';
+import { ModelEvent } from '../../../models/event';
 
 @Component({
   selector: 'app-list-event',
@@ -14,8 +14,8 @@ export class ListEventComponent {
   searchItem: string = "";
 
   constructor(private ApiService: ApiService) { }
-  eventList: any[] = [];
-  incLikes(event: Event) {
+  eventList: ModelEvent[] = [];
+  incLikes(event: ModelEvent) {
     return this.ApiService.Addlikes(event.id).subscribe({
       next: (data) => {
         event.nbrLikes++;
@@ -26,7 +26,7 @@ export class ListEventComponent {
     });
   }
 
-  buy(event: Event) {
+  buy(event: ModelEvent) {
     return this.ApiService.BuyEvent(event.id).subscribe({
       next: (data) => {
         event.nbPlaces--;
@@ -37,7 +37,7 @@ export class ListEventComponent {
     });
   }
 
-  dateExpire(event: Event) {
+  dateExpire(event: ModelEvent) {
     return new Date(event.date) < new Date();
   }
 
@@ -51,7 +51,7 @@ export class ListEventComponent {
 
   getAllEvents(): void {
     this.ApiService.getAllEvents().subscribe({
-      next: (data: any[]) => {
+      next: (data: ModelEvent[]) => {
         this.eventList = data.map(event => ({
           ...event,
           date: new Date(event.date)

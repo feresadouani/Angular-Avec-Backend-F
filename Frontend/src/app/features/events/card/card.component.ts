@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Event } from '../../../models/event';
+import { ModelEvent } from '../../../models/event';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,20 +10,20 @@ import { Router } from '@angular/router';
 export class CardComponent {
 
   constructor(private Router: Router) { }
-  @Input() event!: Event;
-  @Output() notifLike: EventEmitter<Event> = new EventEmitter();
-  @Output() notifBuy: EventEmitter<Event> = new EventEmitter();
+  @Input() event!: ModelEvent;
+  @Output() notifLike: EventEmitter<ModelEvent> = new EventEmitter();
+  @Output() notifBuy: EventEmitter<ModelEvent> = new EventEmitter();
 
 
-  likeEvent(e: Event) {
+  likeEvent(e: ModelEvent) {
     this.notifLike.emit(e);
   }
 
-  buyEvent(e: Event) {
+  buyEvent(e: ModelEvent) {
     this.notifBuy.emit(e);
   }
 
-  dateExpire(event: Event) {
+  dateExpire(event: ModelEvent) {
     return new Date(event.date) < new Date();
   }
 

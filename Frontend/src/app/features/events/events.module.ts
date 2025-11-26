@@ -6,7 +6,7 @@ import { EventsComponent } from './events.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListEventComponent } from './list-event/list-event.component';
-import { ApiService } from '../../service/api.service';
+import { ApiService } from '../../shared/service/api.service';
 import { CardComponent } from './card/card.component';
 import { CapitalizeFirstPipe } from '../../shared/pipes/capitalize-first.pipe';
 import { AddEventComponent } from './add-event/add-event.component';
